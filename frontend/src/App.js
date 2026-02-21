@@ -8,8 +8,10 @@ function App() {
   const [students, setStudents] = useState([]);
   const [editingStudent, setEditingStudent] = useState(null);
   const [showForm, setShowForm] = useState(false);
+
   const API_URL = 'http://localhost:8080/api/students';
 
+  // Fetch all students
   useEffect(() => {
     fetchStudents();
   }, []);
@@ -23,6 +25,7 @@ function App() {
     }
   };
 
+  // Add new student
   const handleAddStudent = async (studentData) => {
     try {
       const response = await axios.post(API_URL, studentData);
@@ -33,6 +36,7 @@ function App() {
     }
   };
 
+  // Update student
   const handleUpdateStudent = async (id, studentData) => {
     try {
       const response = await axios.put(`${API_URL}/${id}`, studentData);
@@ -44,6 +48,7 @@ function App() {
     }
   };
 
+  // Delete student
   const handleDeleteStudent = async (id) => {
     try {
       await axios.delete(`${API_URL}/${id}`);
@@ -53,6 +58,7 @@ function App() {
     }
   };
 
+  // Edit student
   const handleEditStudent = (student) => {
     setEditingStudent(student);
     setShowForm(true);
@@ -65,11 +71,26 @@ function App() {
       </header>
       <div className="container">
         {showForm ? (
-          <StudentForm student={editingStudent} onSubmit={editingStudent ? (data) => handleUpdateStudent(editingStudent.id, data) : handleAddStudent} onCancel={() => { setShowForm(false); setEditingStudent(null); }} />
+          <StudentForm
+            student={editingStudent}
+            onSubmit={editingStudent ? 
+              (data) => handleUpdateStudent(editingStudent.id, data) : 
+              handleAddStudent}
+            onCancel={() => {
+              setShowForm(false);
+              setEditingStudent(null);
+            }}
+          />
         ) : (
-          <button className="btn-add" onClick={() => setShowForm(true)}> Add New Student </button>
+          <button className="btn-add" onClick={() => setShowForm(true)}>
+            Add New Student
+          </button>
         )}
-        <StudentList students={students} onEdit={handleEditStudent} onDelete={handleDeleteStudent} />
+        <StudentList 
+          students={students}
+          onEdit={handleEditStudent}
+          onDelete={handleDeleteStudent}
+        />
       </div>
     </div>
   );
