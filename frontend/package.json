@@ -1,0 +1,1 @@
+{\n  "name": "student-management-system",\n  "version": "1.0.0",\n  "description": "A web application for managing students and their data.",\n  "main": "index.js",\n  "scripts": {\n    "test": "echo 'Error: no test specified' && exit 1"\n  },\n  "author": "yuvak-ratnaparkhi",\n  "license": "ISC"\n}
